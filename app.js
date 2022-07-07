@@ -75,7 +75,7 @@ const displayArticles = async (numOfArticles) => {
         let summaryText = fetchedArticles[i].summary;
         if (summaryText.length > 200) {
             console.log(summaryText.length);
-            summaryText = `${summaryText.slice(0, 200)} ...`
+            summaryText = `${summaryText.slice(0, 200)} [...]`
         }
         newSummary.innerText = summaryText
         newSummary.classList.add("article-summary");
@@ -88,7 +88,7 @@ const displayArticles = async (numOfArticles) => {
         const month = publishDate.split("-")[1];
         const year = publishDate.split("-")[0];
         const newsSite = fetchedArticles[i].newsSite;
-        newParagraph.innerHTML = `<b>${newsSite}</b>${day}.${month}.${year}`;
+        newParagraph.innerHTML = `<b>${newsSite}</b>&nbsp;&nbsp;${day}.${month}.${year}`;
         newFooter.append(newParagraph);
         newCard.append(newImg, newTitle, newSummary, newFooter);
 
