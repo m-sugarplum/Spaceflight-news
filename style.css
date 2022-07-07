@@ -1,23 +1,48 @@
 body {
     /* background-image: url("https://images.unsplash.com/photo-1545243424-0ce743321e11?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"); */
-    background: url("./photos/adrien.jpg");
+    background: url("./photos/adrien-cropped.jpg");
     background-repeat: repeat-y;
-    background-size: cover;
+    background-size: contain;
 }
 
 h1 {
-    color: white;
+    /* color: white; */
     text-align: center;
+    font-family: 'Comfortaa', cursive;
+    font-size: 3.5rem;
+
 }
 
 
 h3 {
-    color: #000;
+    /* color: #000; */
     text-align: center;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
 }
 
-p {
+
+.heading {
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+    margin-bottom: 4%;
+}
+
+.articles-total {
     color: #000;
+    font-family: 'Comfortaa', cursive;
+    font-size: 1.5rem;
+}
+
+.jumbotron {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 40vh;
+    width: 90vw;
+    /* background-color: ; */
+    background-image: url("./photos/nasa.jpg");
 }
 
 .show-articles {
@@ -29,9 +54,9 @@ p {
 
 .card {
     width: 400px;
-    height: 500px;
+    height: 550px;
     margin: 2%;
-    border: 2px white solid;
+    border: 1px white solid;
     background-color: #fff;
 }
 
@@ -40,4 +65,15 @@ p {
     max-height: 250px;
     /* height: 500px; */
     object-fit: cover;
+}
+
+.article-title {
+    padding: 4%;
+}
+
+.article-summary {
+    padding-left: 4%;
+    padding-right: 4%;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.3;
 }

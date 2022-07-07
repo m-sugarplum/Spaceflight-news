@@ -34,8 +34,10 @@ const displayArticles = async () => {
         newImg.classList.add("article-image")
         const newTitle = document.createElement("h3");
         newTitle.innerText = fetchedArticles[i].title;
+        newTitle.classList.add("article-title");
         const newSummary = document.createElement("p");
         newSummary.innerText = fetchedArticles[i].summary;
+        newSummary.classList.add("article-summary");
         newCard.append(newImg, newTitle, newSummary);
         cardsDisplay.appendChild(newCard);
     }
