@@ -1,10 +1,31 @@
 // const articlesUrl = "https://api.spaceflightnewsapi.net/v3/articles";
-const articlesCountUrl = "https://api.spaceflightnewsapi.net/v3/articles/count";
-const get15url = "https://api.spaceflightnewsapi.net/v3/articles?_start=0&_limit=15";
 // const getAnother15url = "https://api.spaceflightnewsapi.net/v3/articles?_start=15&_limit=15";
 // const get15Articles = "https://api.spaceflightnewsapi.net/v3/articles?pagination[start]=1&pagination[limit]=15";
+const countUrl = "https://api.spaceflightnewsapi.net/v3/articles/count";
+const get15url = "https://api.spaceflightnewsapi.net/v3/articles?_start=0&_limit=15";
 const cardsDisplay = document.querySelector(".show-articles");
-const numOfArticles = 45;
+let numOfArticles = 100;
+let selectedNum = 6;
+
+
+const getArticlesCount = async () => {
+    try {
+        const res = await fetch("https://api.spaceflightnewsapi.net/v3/articles/count");
+        const data = await res.json();
+        return data
+    } catch (err) {
+        console.log("ERROR :( ", err);
+    }
+};
+
+
+const displayArticlesCount = async () => {
+    const fetchedCount = await getArticlesCount()
+    numOfArticles = fetchedCount;
+    const countDisplay = document.getElementById("count");
+    countDisplay.innerText = numOfArticles;
+}
+
 
 const getArticles = async (num) => {
     try {
@@ -19,9 +40,8 @@ const getArticles = async (num) => {
 };
 
 
-
 const displayArticles = async () => {
-    const fetchedArticles = await getArticles(numOfArticles);
+    const fetchedArticles = await getArticles(selectedNum);
     console.log(fetchedArticles);
 
     for (let i = 0; i < numOfArticles; i++) {
@@ -29,7 +49,6 @@ const displayArticles = async () => {
         const newCard = document.createElement("div");
         newCard.classList.add("card")
         const newImg = document.createElement("img");
-
         newImg.src = fetchedArticles[i].imageUrl;
         newImg.classList.add("article-image")
         const newTitle = document.createElement("h3");
@@ -42,6 +61,8 @@ const displayArticles = async () => {
         cardsDisplay.appendChild(newCard);
     }
 }
+
+displayArticlesCount();
 
 displayArticles();
 
