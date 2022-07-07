@@ -6,6 +6,16 @@ const get15url = "https://api.spaceflightnewsapi.net/v3/articles?_start=0&_limit
 const cardsDisplay = document.querySelector(".show-articles");
 let numOfArticles = 100;
 let selectedNum = 6;
+const slider = document.getElementById("num-of-articles");
+const selectedValueDisplay = document.getElementById("selected-value");
+// console.log(slider.value, selectedValue.innerText);
+
+slider.addEventListener("change", (event) => {
+
+    console.log(event.target.value);
+    selectedValueDisplay.innerText = event.target.value;
+
+})
 
 
 const getArticlesCount = async () => {
