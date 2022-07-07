@@ -1,12 +1,19 @@
 body {
     /* background-image: url("https://images.unsplash.com/photo-1547499417-29204c97a299?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80"); */
-    background-color: #000;
-    background: url("./photos/adrien-cropped.jpg");
+    background-color: #030206e8;
+    background-image: linear-gradient(to right, #0a040e, #36326a);
+
+    /* background: url("./photos/adrien-xsm.jpg"); */
+    /* background: url("./photos/jorre-cropped.jpg"); */
     background-repeat: repeat-y;
     background-size: cover;
     background-position: center;
+    margin: 0%;
+    padding: 0%;
 
 }
+
+
 
 h1 {
     text-align: center;
@@ -41,7 +48,9 @@ h3 {
     flex-direction: column;
     justify-content: center;
     height: 40vh;
-    width: 90vw;
+
+    /* width: 90vw; */
+    width: 100vw;
     background-color: black;
     background-image: url("./photos/nasa-crop.jpg");
     background-repeat: no-repeat;
@@ -76,7 +85,8 @@ h3 {
 
 input[type=range] {
     margin: 1%;
-    width: 20%;
+    width: 30%;
+    /* smaller for bigger devices */
     margin-top: 5px;
     /* background: transparent; */
 }
@@ -102,8 +112,8 @@ background-color: azure;
     flex-wrap: wrap;
     padding: 0%;
     /* for sm screen: */
-    justify-content: space-between;
-    /* justify-content: center; */
+    /* justify-content: space-between; */
+    justify-content: center;
     width: 100%;
     padding: 5%;
 }
@@ -123,7 +133,7 @@ background-color: azure;
     align-items: center;
     width: 400px;
     height: 600px;
-    margin-bottom: 2%;
+    margin-bottom: 5%;
     border: 1px white solid;
     background-color: #fff;
 }
@@ -179,4 +189,29 @@ footer {
     margin-top: auto;
     /* padding: 2%; */
     /* font-weight: 700; */
+}
+
+@media (min-width: 924px) {
+    .main {
+
+        /* for sm screen: */
+        /* justify-content: space-between; */
+        justify-content: space-around;
+
+    }
+
+    .card {
+        margin: 3%;
+    }
+
+    body {
+        /* background-image: url("https://images.unsplash.com/photo-1547499417-29204c97a299?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80"); */
+        background-color: #000;
+
+        background: url("./photos/adrien-xsm.jpg");
+        background-size: conatin;
+
+
+    }
+
 }
