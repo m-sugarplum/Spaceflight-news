@@ -22,7 +22,7 @@ const get15Articles = async () => {
 
 const displayArticles = async () => {
     const fetchedArticles = await get15Articles();
-    // console.log(fetchedArticles);
+    console.log(fetchedArticles);
 
     for (let i = 0; i < numOfArticles; i++) {
 
@@ -42,6 +42,7 @@ const displayArticles = async () => {
 }
 
 displayArticles();
+
 
 
 // const articles = get15Articles();
