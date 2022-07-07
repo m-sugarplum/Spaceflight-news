@@ -23,6 +23,7 @@ slider.addEventListener("change", (event) => {
     newMain.classList.add("main");
     body.append(newMain);
     displayArticles(newNum);
+    displayArticlesCount();
 })
 
 
@@ -41,7 +42,7 @@ const displayArticlesCount = async () => {
     let articlesTotal = null;
     const fetchedCount = await getArticlesCount()
     articlesTotal = fetchedCount;
-    const countDisplay = document.getElementById("count");
+    const countDisplay = document.getElementById("total-articles");
     countDisplay.innerText = articlesTotal;
 }
 
@@ -71,7 +72,12 @@ const displayArticles = async (numOfArticles) => {
         newTitle.innerText = fetchedArticles[i].title;
         newTitle.classList.add("article-title");
         const newSummary = document.createElement("p");
-        newSummary.innerText = fetchedArticles[i].summary;
+        let summaryText = fetchedArticles[i].summary;
+        if (summaryText.length > 200) {
+            console.log(summaryText.length);
+            summaryText = `${summaryText.slice(0, 200)} ...`
+        }
+        newSummary.innerText = summaryText
         newSummary.classList.add("article-summary");
 
         const newFooter = document.createElement("footer");
@@ -82,7 +88,7 @@ const displayArticles = async (numOfArticles) => {
         const month = publishDate.split("-")[1];
         const year = publishDate.split("-")[0];
         const newsSite = fetchedArticles[i].newsSite;
-        newParagraph.innerHTML = `<b>${newsSite}</b>   ${day}.${month}.${year}`;
+        newParagraph.innerHTML = `<b>${newsSite}</b>${day}.${month}.${year}`;
         newFooter.append(newParagraph);
         newCard.append(newImg, newTitle, newSummary, newFooter);
 
