@@ -4,13 +4,13 @@ const get15url = "https://api.spaceflightnewsapi.net/v3/articles?_start=0&_limit
 // const getAnother15url = "https://api.spaceflightnewsapi.net/v3/articles?_start=15&_limit=15";
 // const get15Articles = "https://api.spaceflightnewsapi.net/v3/articles?pagination[start]=1&pagination[limit]=15";
 const cardsDisplay = document.querySelector(".show-articles");
-const numOfArticles = 15;
+const numOfArticles = 45;
 
-const get15Articles = async () => {
+const getArticles = async (num) => {
     try {
-        const res = await fetch(get15url);
+        const res = await fetch(`https://api.spaceflightnewsapi.net/v3/articles?_start=0&_limit=${num}`);
         const data = await res.json();
-        // console.log(data);
+        console.log(data);
         // console.log(data[0].summary);
         return data
     } catch (err) {
@@ -21,7 +21,7 @@ const get15Articles = async () => {
 
 
 const displayArticles = async () => {
-    const fetchedArticles = await get15Articles();
+    const fetchedArticles = await getArticles(numOfArticles);
     console.log(fetchedArticles);
 
     for (let i = 0; i < numOfArticles; i++) {
