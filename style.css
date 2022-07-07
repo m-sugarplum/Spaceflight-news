@@ -55,7 +55,7 @@ h3 {
     align-items: center;
     color: #fff;
     font-family: 'Comfortaa', cursive;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 }
 
 #counter {
@@ -149,11 +149,16 @@ background-color: azure;
     font-size: 1em;
 }
 
+svg {
+    font-size: 0.5em;
+}
+
 footer {
     border-top: 1px solid black;
     font-size: 1em;
     font-family: 'Montserrat', sans-serif;
     width: 90%;
+    height: 12%;
     margin-top: auto;
     /* padding: 2%; */
     /* font-weight: 700; */
