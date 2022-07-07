@@ -3,18 +3,27 @@
 // const get15Articles = "https://api.spaceflightnewsapi.net/v3/articles?pagination[start]=1&pagination[limit]=15";
 const countUrl = "https://api.spaceflightnewsapi.net/v3/articles/count";
 const get15url = "https://api.spaceflightnewsapi.net/v3/articles?_start=0&_limit=15";
-const cardsDisplay = document.querySelector(".show-articles");
+
 let numOfArticles = 100;
-let selectedNum = 6;
+let limitNumber = 15;
+let startNumber = 0;
 const slider = document.getElementById("num-of-articles");
 const selectedValueDisplay = document.getElementById("selected-value");
 // console.log(slider.value, selectedValue.innerText);
+// const mainDiv = document.getElementsByClassName("main");
+const cardsDisplay = document.getElementsByClassName("main");
+
 
 slider.addEventListener("change", (event) => {
-
-    console.log(event.target.value);
-    selectedValueDisplay.innerText = event.target.value;
-
+    const newNum = event.target.value;
+    console.log(newNum);
+    selectedValueDisplay.innerText = newNum;
+    cardsDisplay[0].remove();
+    const body = document.getElementsByTagName("BODY")[0];
+    const newMain = document.createElement("div");
+    newMain.classList.add("main");
+    body.append(newMain);
+    displayArticles(newNum);
 })
 
 
@@ -37,12 +46,10 @@ const displayArticlesCount = async () => {
 }
 
 
-const getArticles = async (num) => {
+const getArticles = async (startNumber, limitNumber) => {
     try {
-        const res = await fetch(`https://api.spaceflightnewsapi.net/v3/articles?_start=0&_limit=${num}`);
+        const res = await fetch(`https://api.spaceflightnewsapi.net/v3/articles?_start=${startNumber}&_limit=${limitNumber}`);
         const data = await res.json();
-        console.log(data);
-        // console.log(data[0].summary);
         return data
     } catch (err) {
         console.log("ERROR :( ", err);
@@ -50,9 +57,11 @@ const getArticles = async (num) => {
 };
 
 
-const displayArticles = async () => {
-    const fetchedArticles = await getArticles(selectedNum);
+const displayArticles = async (num) => {
+    // const displayNumber = selectedNum + articlesToAdd;
+    const fetchedArticles = await getArticles(startNumber, num);
     console.log(fetchedArticles);
+    const cardsDisplay = document.getElementsByClassName("main");
 
     for (let i = 0; i < numOfArticles; i++) {
 
@@ -68,13 +77,18 @@ const displayArticles = async () => {
         newSummary.innerText = fetchedArticles[i].summary;
         newSummary.classList.add("article-summary");
         newCard.append(newImg, newTitle, newSummary);
-        cardsDisplay.appendChild(newCard);
+        const cardsDisplay = document.getElementsByClassName("main");
+        cardsDisplay[0].append(newCard);
     }
 }
 
+window.onload = (event) => {
+    displayArticles(limitNumber);
+};
+
 displayArticlesCount();
 
-displayArticles();
+
 
 
 
