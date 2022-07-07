@@ -3,7 +3,6 @@ body {
     background: url("./photos/adrien-cropped.jpg");
     background-repeat: repeat-y;
     background-size: cover;
-    min-width: 100%;
 
 }
 
@@ -62,10 +61,16 @@ h3 {
 #selected-value {
     margin: 5px;
     font-weight: 900;
+    background-color: white;
+    padding: 4px;
+    color: #000;
 }
 
-input {
+input[type=range] {
     margin: 1%;
+    width: 20%;
+    margin-top: 5px;
+    /* background: transparent; */
 }
 
 
@@ -84,18 +89,24 @@ background-color: azure;
 /* select {} */
 
 .main {
-    display: flex;
-    justify-content: center;
-}
-
-.show-articles {
+    box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
-    max-width: 90vw;
+    padding: 0%;
     /* for sm screen: */
-    /* justify-content: space-between; */
-    justify-content: center;
+    justify-content: space-between;
+    /* justify-content: center; */
+    width: 100%;
+    padding: 5%;
 }
+
+/* .show-articles {
+    display: flex;
+
+
+
+
+} */
 
 .card {
     width: 400px;
@@ -103,7 +114,6 @@ background-color: azure;
     margin-bottom: 2%;
     border: 1px white solid;
     background-color: #fff;
-
 }
 
 .article-image {
@@ -122,4 +132,13 @@ background-color: azure;
     padding-right: 4%;
     font-family: 'Montserrat', sans-serif;
     line-height: 1.3;
+}
+
+footer {
+    border-top: 1px solid black;
+    font-size: 1em;
+    font-family: 'Montserrat', sans-serif;
+    width: 80%
+        /* padding: 2%; */
+        /* font-weight: 700; */
 }

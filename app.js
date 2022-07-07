@@ -1,20 +1,19 @@
 // const articlesUrl = "https://api.spaceflightnewsapi.net/v3/articles";
 // const getAnother15url = "https://api.spaceflightnewsapi.net/v3/articles?_start=15&_limit=15";
 // const get15Articles = "https://api.spaceflightnewsapi.net/v3/articles?pagination[start]=1&pagination[limit]=15";
-const countUrl = "https://api.spaceflightnewsapi.net/v3/articles/count";
-const get15url = "https://api.spaceflightnewsapi.net/v3/articles?_start=0&_limit=15";
+// const countUrl = "https://api.spaceflightnewsapi.net/v3/articles/count";
+// const get15url = "https://api.spaceflightnewsapi.net/v3/articles?_start=0&_limit=15";
 
-let numOfArticles = 100;
-let limitNumber = 15;
-let startNumber = 0;
+
+let defaultNumber = 15;
+
 const slider = document.getElementById("num-of-articles");
-const selectedValueDisplay = document.getElementById("selected-value");
-// console.log(slider.value, selectedValue.innerText);
-// const mainDiv = document.getElementsByClassName("main");
+
 const cardsDisplay = document.getElementsByClassName("main");
 
 
 slider.addEventListener("change", (event) => {
+    const selectedValueDisplay = document.getElementById("selected-value");
     const newNum = event.target.value;
     console.log(newNum);
     selectedValueDisplay.innerText = newNum;
@@ -39,10 +38,11 @@ const getArticlesCount = async () => {
 
 
 const displayArticlesCount = async () => {
+    let articlesTotal = null;
     const fetchedCount = await getArticlesCount()
-    numOfArticles = fetchedCount;
+    articlesTotal = fetchedCount;
     const countDisplay = document.getElementById("count");
-    countDisplay.innerText = numOfArticles;
+    countDisplay.innerText = articlesTotal;
 }
 
 
@@ -57,15 +57,12 @@ const getArticles = async (startNumber, limitNumber) => {
 };
 
 
-const displayArticles = async (num) => {
-    // const displayNumber = selectedNum + articlesToAdd;
-    const fetchedArticles = await getArticles(startNumber, num);
+const displayArticles = async (numOfArticles) => {
+    const fetchedArticles = await getArticles(0, numOfArticles);
     console.log(fetchedArticles);
-    const cardsDisplay = document.getElementsByClassName("main");
-
     for (let i = 0; i < numOfArticles; i++) {
 
-        const newCard = document.createElement("div");
+        const newCard = document.createElement("article");
         newCard.classList.add("card")
         const newImg = document.createElement("img");
         newImg.src = fetchedArticles[i].imageUrl;
@@ -76,47 +73,30 @@ const displayArticles = async (num) => {
         const newSummary = document.createElement("p");
         newSummary.innerText = fetchedArticles[i].summary;
         newSummary.classList.add("article-summary");
-        newCard.append(newImg, newTitle, newSummary);
+
+        const newFooter = document.createElement("footer");
+        const newParagraph = document.createElement("p");
+        // console.log(fetchedArticles[i].publishedAt.getMonth())
+        const publishDate = fetchedArticles[i].publishedAt.split("T")[0];
+        const day = publishDate.split("-")[2];
+        const month = publishDate.split("-")[1];
+        const year = publishDate.split("-")[0];
+        const newsSite = fetchedArticles[i].newsSite;
+        newParagraph.innerHTML = `<b>${newsSite}</b>   ${day}.${month}.${year}`;
+        newFooter.append(newParagraph);
+        newCard.append(newImg, newTitle, newSummary, newFooter);
+
         const cardsDisplay = document.getElementsByClassName("main");
         cardsDisplay[0].append(newCard);
     }
 }
 
 window.onload = (event) => {
-    displayArticles(limitNumber);
+    displayArticles(defaultNumber);
 };
 
 displayArticlesCount();
 
-
-
-
-
-// const articles = get15Articles();
-// console.log(articles)
-
-// fetch(get15Articles)
-//     .then((res) => {
-//         return res.json();
-//     })
-//     .then((articles) => {
-//         console.log(articles)
-//     })
-//     .catch((err) => {
-//         console.log("ERROR :( ", err);
-//     });
-
-
-// fetch(getAnother15Articles)
-//     .then((res) => {
-//         return res.json();
-//     })
-//     .then((articles) => {
-//         console.log(articles)
-//     })
-//     .catch((err) => {
-//         console.log("ERROR :( ", err);
-//     });
 
 console.log("HELLO FROM THE SCRIPT!");
 
