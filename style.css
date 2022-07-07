@@ -3,6 +3,8 @@ body {
     background: url("./photos/adrien-cropped.jpg");
     background-repeat: repeat-y;
     background-size: contain;
+    min-width: 100vw;
+
 }
 
 h1 {
@@ -41,23 +43,31 @@ h3 {
     justify-content: center;
     height: 40vh;
     width: 90vw;
-    /* background-color: ; */
+    background-color: black;
     background-image: url("./photos/nasa.jpg");
+}
+
+.main {
+    display: flex;
+    justify-content: center;
 }
 
 .show-articles {
     display: flex;
     flex-wrap: wrap;
-    max-width: max-content;
+    max-width: 90vw;
+    /* for sm screen: */
+    /* justify-content: space-between; */
     justify-content: center;
 }
 
 .card {
     width: 400px;
     height: 550px;
-    margin: 2%;
+    margin-bottom: 2%;
     border: 1px white solid;
     background-color: #fff;
+
 }
 
 .article-image {
