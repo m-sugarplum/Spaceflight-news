@@ -31,7 +31,7 @@ ol {
     /* color: #fff; */
 }
 
-img {
+#logo-img {
     height: 50px;
     /* padding: 0%;
     margin: 3% 0%; */
@@ -49,12 +49,12 @@ img {
 /* } */
 
 
-#library-link {
+.nav-link {
     color: white;
     text-decoration: none;
 }
 
-#library-link:hover {
+.nav-link:hover {
     border-bottom: 1px solid #fff;
 }
 
