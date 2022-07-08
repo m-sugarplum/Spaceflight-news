@@ -1,10 +1,7 @@
 body {
     /* background-image: url("https://images.unsplash.com/photo-1547499417-29204c97a299?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80"); */
     background-color: #030206e8;
-    background-image: linear-gradient(to right, #0a040e, #36326a);
-
-    /* background: url("./photos/adrien-xsm.jpg"); */
-    /* background: url("./photos/jorre-cropped.jpg"); */
+    background-image: linear-gradient(to bottom, #030304, 15%, #1f38935e);
     background-repeat: repeat-y;
     background-size: cover;
     background-position: center;
@@ -13,12 +10,10 @@ body {
 
 }
 
-
-
 h1 {
     text-align: center;
     font-family: 'Comfortaa', cursive;
-    font-size: 3.5rem;
+    font-size: 3rem;
 }
 
 
@@ -27,8 +22,13 @@ h3 {
     text-align: center;
     font-weight: 600;
     font-family: 'Montserrat', sans-serif;
+    font-size: 2em;
 }
 
+
+.close-to-end {
+    color: aqua;
+}
 
 .heading {
     display: flex;
@@ -40,7 +40,7 @@ h3 {
 .articles-total {
     color: #000;
     font-family: 'Comfortaa', cursive;
-    font-size: 1.5rem;
+    font-size: 1rem;
 }
 
 .jumbotron {
@@ -64,7 +64,7 @@ h3 {
     align-items: center;
     color: #fff;
     font-family: 'Comfortaa', cursive;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 
 #counter {
@@ -85,7 +85,7 @@ h3 {
 
 input[type=range] {
     margin: 1%;
-    width: 30%;
+    width: 50%;
     /* smaller for bigger devices */
     margin-top: 5px;
     /* background: transparent; */
@@ -146,15 +146,15 @@ background-color: azure;
 }
 
 .article-title {
-    font-size: 1.1em;
+    font-size: 1em;
     padding: 1%;
     margin: 1%;
     /* margin-bottom: 1%; */
 }
 
 .article-summary {
-    padding-left: 4%;
-    padding-right: 4%;
+    padding: 1%;
+    margin: 1%;
     font-family: 'Montserrat', sans-serif;
     line-height: 1.3;
     font-size: 1em;
@@ -172,7 +172,8 @@ a {
     font-weight: 700;
     text-decoration: none;
     border: 2px solid rgba(128, 128, 128, 0.733);
-    padding: 5px;
+    padding: 1.5%;
+    margin: 2%;
     transition: background-color .3s ease-in-out
 }
 
@@ -185,33 +186,59 @@ footer {
     font-size: 1em;
     font-family: 'Montserrat', sans-serif;
     width: 90%;
-    height: 12%;
+    height: 10%;
     margin-top: auto;
     /* padding: 2%; */
     /* font-weight: 700; */
 }
 
-@media (min-width: 924px) {
+@media (min-width: 650px) {
+
     .main {
-
-        /* for sm screen: */
-        /* justify-content: space-between; */
         justify-content: space-around;
-
     }
 
     .card {
+        width: 550px;
+        margin: 1%;
+    }
+
+    /* .card {
         margin: 3%;
+    } */
+
+}
+
+
+@media (min-width: 1000px) {
+
+    /* .main {
+        justify-content: space-around;
+    } */
+
+    .card {
+        width: 450px;
+        /* margin: 1%; */
+        margin-bottom: 2%;
+        justify-content: space-around;
     }
 
+}
+
+@media (min-width: 1200px) {
     body {
-        /* background-image: url("https://images.unsplash.com/photo-1547499417-29204c97a299?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80"); */
         background-color: #000;
-
-        background: url("./photos/adrien-xsm.jpg");
-        background-size: conatin;
-
-
+        background-image: linear-gradient(to bottom, #030304, 20%, #1e1e3385), url("./photos/adrien-cropped.jpg");
+        background-repeat: repeat-y;
+        background-size: cover;
+        background-position: center;
     }
 
+    .main {
+        justify-content: space-evenly;
+    }
+
+    .card {
+        margin: 3% 1%;
+    }
 }
