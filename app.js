@@ -5,26 +5,67 @@
 // const get15url = "https://api.spaceflightnewsapi.net/v3/articles?_start=0&_limit=15";
 
 
-let defaultNumber = 15;
+// let defaultNumber = 15;
+
+// let defaultStartNumber = 0;
 
 const slider = document.getElementById("num-of-articles");
 
 const cardsDisplay = document.getElementsByClassName("main");
 
+let currentNumOfArticles = 15;
+
+// let checkIdArray = [];
+
+// let findDuplicates = arr => arr.filter((item, index) => arr.indexOf(item) != index)
+
+/*
+function init(){
+    displayArticlesCount
+}
+let shownArticles = 15;
+
+function countarticles(var extra){
+    shownArticlers+=extra;
+
+}
+*/
+
+const changeArticlesCounter = (num) => {
+    const selectedValueDisplay = document.getElementById("selected-value");
+    selectedValueDisplay.innerText = num;
+}
+
 
 slider.addEventListener("change", (event) => {
-    const selectedValueDisplay = document.getElementById("selected-value");
-    const newNum = event.target.value;
-    console.log(newNum);
-    selectedValueDisplay.innerText = newNum;
+    // const selectedValueDisplay = document.getElementById("selected-value");
+    // const newNum = event.target.value;
+    currentNumOfArticles = event.target.value;
+    changeArticlesCounter(currentNumOfArticles);
+    // selectedValueDisplay.innerText = currentNumOfArticles;
     cardsDisplay[0].remove();
     const body = document.getElementsByTagName("BODY")[0];
     const newMain = document.createElement("div");
     newMain.classList.add("main");
     body.append(newMain);
-    displayArticles(newNum);
+    displayArticles(0, currentNumOfArticles);
     displayArticlesCount();
 })
+
+window.addEventListener("scroll", function () {
+    const closeToEndCard = document.getElementsByClassName("close-to-end");
+    const cardPosition = closeToEndCard[0].offsetTop;
+    // closeToEndCard.classList.toggle("close-to-end");
+
+    if (window.scrollY > cardPosition) {
+
+        closeToEndCard[0].classList.value = "card";
+        displayArticles(currentNumOfArticles, (currentNumOfArticles + 15));
+        currentNumOfArticles += 15;
+        console.log(currentNumOfArticles);
+        changeArticlesCounter(currentNumOfArticles);
+    }
+});
 
 
 const getArticlesCount = async () => {
@@ -39,7 +80,7 @@ const getArticlesCount = async () => {
 
 
 const displayArticlesCount = async () => {
-    let articlesTotal = null;
+    // let articlesTotal = null;
     const fetchedCount = await getArticlesCount()
     articlesTotal = fetchedCount;
     const countDisplay = document.getElementById("total-articles");
@@ -58,13 +99,16 @@ const getArticles = async (startNumber, limitNumber) => {
 };
 
 
-const displayArticles = async (numOfArticles) => {
-    const fetchedArticles = await getArticles(0, numOfArticles);
-    console.log(fetchedArticles);
+const displayArticles = async (firstArticle, numOfArticles) => {
+    const fetchedArticles = await getArticles(firstArticle, numOfArticles);
+    // console.log(fetchedArticles);
     for (let i = 0; i < numOfArticles; i++) {
-
         const newCard = document.createElement("article");
         newCard.classList.add("card")
+        if (i === numOfArticles - 4) {
+            newCard.classList.add("close-to-end");
+
+        };
         const newImg = document.createElement("img");
         newImg.src = fetchedArticles[i].imageUrl;
         newImg.classList.add("article-image")
@@ -74,7 +118,6 @@ const displayArticles = async (numOfArticles) => {
         const newSummary = document.createElement("p");
         let summaryText = fetchedArticles[i].summary;
         if (summaryText.length > 200) {
-            console.log(summaryText.length);
             summaryText = `${summaryText.slice(0, 200)} [...]`
         }
         newSummary.innerText = summaryText
@@ -98,7 +141,7 @@ const displayArticles = async (numOfArticles) => {
 }
 
 window.onload = (event) => {
-    displayArticles(defaultNumber);
+    displayArticles(0, 15);
 };
 
 displayArticlesCount();
