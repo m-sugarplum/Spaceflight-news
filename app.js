@@ -38,11 +38,8 @@ const changeArticlesCounter = (num) => {
 
 
 slider.addEventListener("change", (event) => {
-    // const selectedValueDisplay = document.getElementById("selected-value");
-    // const newNum = event.target.value;
     currentNumOfArticles = event.target.value;
     changeArticlesCounter(currentNumOfArticles);
-    // selectedValueDisplay.innerText = currentNumOfArticles;
     cardsDisplay[0].remove();
     const body = document.getElementsByTagName("BODY")[0];
     const newMain = document.createElement("div");
@@ -56,12 +53,15 @@ window.addEventListener("scroll", function () {
     const closeToEndCard = document.getElementsByClassName("close-to-end");
     const cardPosition = closeToEndCard[0].offsetTop;
     // closeToEndCard.classList.toggle("close-to-end");
-
     if (window.scrollY > cardPosition) {
-
+        // closeToEndCard[0].classList.value = "card";
+        // displayArticles(currentNumOfArticles, (currentNumOfArticles + 15));
+        // currentNumOfArticles += 15;
+        // console.log(currentNumOfArticles);
+        // changeArticlesCounter(currentNumOfArticles);
         closeToEndCard[0].classList.value = "card";
-        displayArticles(currentNumOfArticles, (currentNumOfArticles + 15));
-        currentNumOfArticles += 15;
+        displayArticles(currentNumOfArticles, 8);
+        currentNumOfArticles += 8;
         console.log(currentNumOfArticles);
         changeArticlesCounter(currentNumOfArticles);
     }
@@ -105,7 +105,7 @@ const displayArticles = async (firstArticle, numOfArticles) => {
     for (let i = 0; i < numOfArticles; i++) {
         const newCard = document.createElement("article");
         newCard.classList.add("card")
-        if (i === numOfArticles - 4) {
+        if (i === numOfArticles - 8) {
             newCard.classList.add("close-to-end");
 
         };
