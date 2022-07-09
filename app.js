@@ -17,7 +17,7 @@ let currentNumOfArticles = 15;
 
 let storedArticlesId = Object.keys(localStorage);
 console.log(storedArticlesId);
-// localStorage.clear()
+// localStorage.clear();
 // const closeToEndCard = document.getElementsByClassName("close-to-end");
 // console.log(closeToEndCard);
 // console.log(storedArticlesId);
@@ -44,22 +44,34 @@ function countarticles(var extra){
 
 
 window.addEventListener("click", (event) => {
+    // console.log(Object.keys(localStorage))
     // console.log(event.target.classList);
     const addedClasses = event.target.classList;
     const targetId = event.target.id;
     if (addedClasses.contains("star")) {
-        if (addedClasses.contains("star-fill") && storedArticlesId.includes(targetId)) {
-            console.log("Star is filled and article is in the localStorage");
-        } else if (!addedClasses.contains("star-fill") && !storedArticlesId.includes(targetId)) {
-            console.log("empty star, article not in the library")
+        // event.target.classList.toggle("star-fill");
+        if (addedClasses.contains("star-fill") && Object.keys(localStorage).includes(targetId)) {
+            console.log(targetId);
+            localStorage.removeItem(`${targetId}`);
+            console.log("ITEM REMOVED FROM STORAGE");
+            event.target.classList.toggle("star-fill");
+            console.log(Object.keys(localStorage));
+
+
+        } else if (!addedClasses.contains("star-fill") && !Object.keys(localStorage).includes(targetId)) {
+            console.log(Object.keys(localStorage))
+            event.target.classList.toggle("star-fill");
+            localStorage.setItem(`${event.target.id}`, `${event.target.id}`);
+            (console.log("article saved to the storage, id: ", event.target.id));
+            // console.log(Object.keys(localStorage));
         }
         else {
             console.log("Something went wrong");
-            // event.target.classList.toggle("star-fill");
-            // localStorage.setItem(`${event.target.id}`, `${event.target.id}`);
+
+
         }
-        // event.target.classList.toggle("star-fill");
-        // // console.log(event.target.id);
+
+        // console.log(event.target.id);
         // localStorage.setItem(`${event.target.id}`, `${event.target.id}`);
         // const articleAdded = localStorage.getItem(`${event.target.id}`);
         // console.log(articleAdded);
@@ -152,13 +164,12 @@ const displayArticles = async (firstArticle, numOfArticles) => {
             console.log("this article is saved in the storage! id: ", fetchedArticles[i].id);
             newStar.classList.add("star", "star-fill");
 
+
         } else {
             newStar.classList.add("star");
-            newStar.setAttribute("src", "./photos/star.svg");
-            newStar.setAttribute("id", `${fetchedArticles[i].id}`);
-            // console.log(newStar);
-            // newAddToFav.append(newStar);
         }
+        newStar.setAttribute("src", "./photos/star.svg");
+        newStar.setAttribute("id", `${fetchedArticles[i].id}`);
 
         const newImg = document.createElement("img");
         newImg.src = fetchedArticles[i].imageUrl;
