@@ -15,6 +15,15 @@ const cardsDisplay = document.getElementsByClassName("main");
 
 let currentNumOfArticles = 15;
 
+let storedArticlesId = Object.keys(localStorage);
+console.log(storedArticlesId);
+// localStorage.clear()
+// const closeToEndCard = document.getElementsByClassName("close-to-end");
+// console.log(closeToEndCard);
+// console.log(storedArticlesId);
+// console.log(Storage.length);
+// localStorage.getItem(`15700`);
+
 // let checkIdArray = [];
 
 // let findDuplicates = arr => arr.filter((item, index) => arr.indexOf(item) != index)
@@ -31,18 +40,31 @@ function countarticles(var extra){
 }
 */
 
-const favourites = document.getElementsByClassName("favourites");
-console.log(favourites);
+// const favourites = document.getElementsByClassName("favourites");
 
 
 window.addEventListener("click", (event) => {
-    console.log(event.target.classList);
-    if (event.target.classList.contains("star")) {
-        // const star = document.getElementById("star");
-        event.target.classList.toggle("star-fill");
+    // console.log(event.target.classList);
+    const addedClasses = event.target.classList;
+    const targetId = event.target.id;
+    if (addedClasses.contains("star")) {
+        if (addedClasses.contains("star-fill") && storedArticlesId.includes(targetId)) {
+            console.log("Star is filled and article is in the localStorage");
+        } else if (!addedClasses.contains("star-fill") && !storedArticlesId.includes(targetId)) {
+            console.log("empty star, article not in the library")
+        }
+        else {
+            console.log("Something went wrong");
+            // event.target.classList.toggle("star-fill");
+            // localStorage.setItem(`${event.target.id}`, `${event.target.id}`);
+        }
+        // event.target.classList.toggle("star-fill");
+        // // console.log(event.target.id);
+        // localStorage.setItem(`${event.target.id}`, `${event.target.id}`);
+        // const articleAdded = localStorage.getItem(`${event.target.id}`);
+        // console.log(articleAdded);
+        // console.log(localStorage.length);
     }
-    // console.log(event.target);
-
 });
 
 const changeArticlesCounter = (num) => {
@@ -65,18 +87,13 @@ slider.addEventListener("change", (event) => {
 
 window.addEventListener("scroll", function () {
     const closeToEndCard = document.getElementsByClassName("close-to-end");
+
     const cardPosition = closeToEndCard[0].offsetTop;
-    // closeToEndCard.classList.toggle("close-to-end");
+
     if (window.scrollY > cardPosition) {
-        // closeToEndCard[0].classList.value = "card";
-        // displayArticles(currentNumOfArticles, (currentNumOfArticles + 15));
-        // currentNumOfArticles += 15;
-        // console.log(currentNumOfArticles);
-        // changeArticlesCounter(currentNumOfArticles);
         closeToEndCard[0].classList.value = "card";
         displayArticles(currentNumOfArticles, 8);
         currentNumOfArticles += 8;
-        console.log(currentNumOfArticles);
         changeArticlesCounter(currentNumOfArticles);
     }
 });
@@ -126,15 +143,23 @@ const displayArticles = async (firstArticle, numOfArticles) => {
         // newAddToFav.setAttribute("id", "favourites");
         // newAddToFav.classList.add("favourites");
         // newAddToFav.innerText = "Add to favourites";
-        const newStar = document.createElement("img");
-        // newStar.setAttribute("id", "star");
-        newStar.classList.add("star");
-        newStar.setAttribute("src", "./photos/star.svg");
-        // newAddToFav.append(newStar);
         if (i === numOfArticles - 8) {
             newCard.classList.add("close-to-end");
 
         };
+        const newStar = document.createElement("img");
+        if (storedArticlesId.includes(`${fetchedArticles[i].id}`)) {
+            console.log("this article is saved in the storage! id: ", fetchedArticles[i].id);
+            newStar.classList.add("star", "star-fill");
+
+        } else {
+            newStar.classList.add("star");
+            newStar.setAttribute("src", "./photos/star.svg");
+            newStar.setAttribute("id", `${fetchedArticles[i].id}`);
+            // console.log(newStar);
+            // newAddToFav.append(newStar);
+        }
+
         const newImg = document.createElement("img");
         newImg.src = fetchedArticles[i].imageUrl;
         newImg.classList.add("article-image")
@@ -170,6 +195,7 @@ const displayArticles = async (firstArticle, numOfArticles) => {
         cardsDisplay[0].append(newCard);
     }
 }
+    ;
 
 window.onload = (event) => {
     displayArticles(0, 15);
