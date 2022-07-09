@@ -101,7 +101,7 @@ const getArticles = async (startNumber, limitNumber) => {
 
 const displayArticles = async (firstArticle, numOfArticles) => {
     const fetchedArticles = await getArticles(firstArticle, numOfArticles);
-    // console.log(fetchedArticles);
+    console.log(fetchedArticles);
     for (let i = 0; i < numOfArticles; i++) {
         const newCard = document.createElement("article");
         newCard.classList.add("card")
@@ -123,9 +123,14 @@ const displayArticles = async (firstArticle, numOfArticles) => {
         newSummary.innerText = summaryText
         newSummary.classList.add("article-summary");
 
+        const newLink = document.createElement("a");
+        newLink.setAttribute("id", "full-article-link");
+        newLink.setAttribute("href", `${fetchedArticles[i].url}`);
+        newLink.setAttribute("target", "_blank");
+        newLink.text = "Read more";
+
         const newFooter = document.createElement("footer");
         const newParagraph = document.createElement("p");
-        // console.log(fetchedArticles[i].publishedAt.getMonth())
         const publishDate = fetchedArticles[i].publishedAt.split("T")[0];
         const day = publishDate.split("-")[2];
         const month = publishDate.split("-")[1];
@@ -133,7 +138,7 @@ const displayArticles = async (firstArticle, numOfArticles) => {
         const newsSite = fetchedArticles[i].newsSite;
         newParagraph.innerHTML = `<b>${newsSite}</b>&nbsp;&nbsp;${day}.${month}.${year}`;
         newFooter.append(newParagraph);
-        newCard.append(newImg, newTitle, newSummary, newFooter);
+        newCard.append(newImg, newTitle, newSummary, newLink, newFooter);
 
         const cardsDisplay = document.getElementsByClassName("main");
         cardsDisplay[0].append(newCard);

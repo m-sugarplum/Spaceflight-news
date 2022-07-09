@@ -226,15 +226,15 @@ background-color: azure;
     color: #000;
     font-weight: 700;
     text-decoration: none;
-    border: 2px solid rgba(128, 128, 128, 0.733);
+    border: 1px solid rgba(128, 128, 128, 0.733);
     padding: 1.5%;
     /* margin: 2%; */
-    transition: background-color .3s ease-in-out;
-    margin-top: auto;
+    transition: background-color .3s ease-in;
+    /* margin-top: auto; */
 }
 
 #full-article-link:hover {
-    background-color: rgba(125 140 183 / 73%);
+    background-color: rgba(125, 141, 183, 0.219);
 }
 
 footer {
