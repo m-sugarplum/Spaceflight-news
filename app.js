@@ -31,6 +31,20 @@ function countarticles(var extra){
 }
 */
 
+const favourites = document.getElementsByClassName("favourites");
+console.log(favourites);
+
+
+window.addEventListener("click", (event) => {
+    console.log(event.target.classList);
+    if (event.target.classList.contains("star")) {
+        // const star = document.getElementById("star");
+        event.target.classList.toggle("star-fill");
+    }
+    // console.log(event.target);
+
+});
+
 const changeArticlesCounter = (num) => {
     const selectedValueDisplay = document.getElementById("selected-value");
     selectedValueDisplay.innerText = num;
@@ -103,8 +117,20 @@ const displayArticles = async (firstArticle, numOfArticles) => {
     const fetchedArticles = await getArticles(firstArticle, numOfArticles);
     console.log(fetchedArticles);
     for (let i = 0; i < numOfArticles; i++) {
+
+
+
         const newCard = document.createElement("article");
         newCard.classList.add("card")
+        // const newAddToFav = document.createElement("p");
+        // newAddToFav.setAttribute("id", "favourites");
+        // newAddToFav.classList.add("favourites");
+        // newAddToFav.innerText = "Add to favourites";
+        const newStar = document.createElement("img");
+        // newStar.setAttribute("id", "star");
+        newStar.classList.add("star");
+        newStar.setAttribute("src", "./photos/star.svg");
+        // newAddToFav.append(newStar);
         if (i === numOfArticles - 8) {
             newCard.classList.add("close-to-end");
 
@@ -138,7 +164,7 @@ const displayArticles = async (firstArticle, numOfArticles) => {
         const newsSite = fetchedArticles[i].newsSite;
         newParagraph.innerHTML = `<b>${newsSite}</b>&nbsp;&nbsp;${day}.${month}.${year}`;
         newFooter.append(newParagraph);
-        newCard.append(newImg, newTitle, newSummary, newLink, newFooter);
+        newCard.append(newImg, newStar, newTitle, newSummary, newLink, newFooter);
 
         const cardsDisplay = document.getElementsByClassName("main");
         cardsDisplay[0].append(newCard);
