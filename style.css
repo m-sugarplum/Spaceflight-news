@@ -172,7 +172,7 @@ p {
     /* justify-content: space-between; */
     justify-content: center;
     width: 100%;
-    padding: 5%;
+    padding: 1% 5%;
 }
 
 /* .show-articles {
@@ -182,9 +182,9 @@ p {
 
 
 } */
-/* .close-to-end {
+.close-to-end {
     color: aqua;
-} */
+}
 
 .card {
     display: flex;
@@ -339,4 +339,14 @@ footer {
     input[type=range] {
         width: 10%;
     }
+
+    .jumbotron {
+        height: 50vh;
+    }
+
+    .main {
+        padding-top: 0%;
+    }
+
+
 }
