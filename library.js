@@ -14,33 +14,33 @@ console.log(storedArticlesCount);
 
 
 
-// window.addEventListener("click", (event) => {
-//     const addedClasses = event.target.classList;
-//     const targetId = event.target.id;
-//     if (addedClasses.contains("star")) {
+window.addEventListener("click", (event) => {
+    const addedClasses = event.target.classList;
+    const targetId = event.target.id;
+    if (addedClasses.contains("star")) {
 
-//         if (addedClasses.contains("star-fill") && Object.keys(localStorage).includes(targetId)) {
-//             console.log(targetId);
-//             localStorage.removeItem(`${targetId}`);
-//             console.log("ITEM REMOVED FROM STORAGE");
-//             event.target.classList.toggle("star-fill");
-//             console.log(Object.keys(localStorage));
-
-
-//         } else if (!addedClasses.contains("star-fill") && !Object.keys(localStorage).includes(targetId)) {
-//             console.log(Object.keys(localStorage))
-//             event.target.classList.toggle("star-fill");
-//             localStorage.setItem(`${event.target.id}`, `${event.target.id}`);
-//             (console.log("article saved to the storage, id: ", event.target.id));
-
-//         }
-//         else {
-//             console.log("Something went wrong");
+        if (addedClasses.contains("star-fill") && Object.keys(localStorage).includes(targetId)) {
+            console.log(targetId);
+            localStorage.removeItem(`${targetId}`);
+            console.log("ITEM REMOVED FROM STORAGE");
+            event.target.classList.toggle("star-fill");
+            console.log(Object.keys(localStorage));
 
 
-//         }
-//     }
-// });
+        } else if (!addedClasses.contains("star-fill") && !Object.keys(localStorage).includes(targetId)) {
+            console.log(Object.keys(localStorage))
+            event.target.classList.toggle("star-fill");
+            localStorage.setItem(`${event.target.id}`, `${event.target.id}`);
+            (console.log("article saved to the storage, id: ", event.target.id));
+
+        }
+        else {
+            console.log("Something went wrong");
+
+
+        }
+    }
+});
 
 const displayTotalSavedArticles = () => {
     const totalSavedArticles = document.getElementById("total-saved-articles");
