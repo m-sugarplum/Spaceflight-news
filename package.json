@@ -1,0 +1,24 @@
+{
+  "name": "frontend-internship",
+  "version": "1.0.0",
+  "description": "Magdalena Śliwińska",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m-sugarplum/frontend-internship.git"
+  },
+  "author": "Magdalena Śliwińska",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/m-sugarplum/frontend-internship/issues"
+  },
+  "homepage": "https://github.com/m-sugarplum/frontend-internship#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "path": "^0.12.7"
+  }
+}
