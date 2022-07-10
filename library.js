@@ -5,6 +5,10 @@ const cardsDisplay = document.getElementsByClassName("main");
 let currentNumOfArticles = 15;
 
 let storedArticlesId = Object.keys(localStorage);
+
+let storedArticlesCount = localStorage.length;
+console.log(storedArticlesCount);
+
 console.log(storedArticlesId);
 
 
@@ -39,23 +43,25 @@ window.addEventListener("click", (event) => {
     }
 });
 
-const changeArticlesCounter = (num) => {
-    const selectedValueDisplay = document.getElementById("selected-value");
-    selectedValueDisplay.innerText = num;
+const setArticlesNumDisplay = () => {
+    const totalSavedArticles = document.getElementById("total-saved-articles");
+    console.log(totalSavedArticles);
+    totalSavedArticles.innerText = storedArticlesCount;
 }
+setArticlesNumDisplay();
 
 
-slider.addEventListener("change", (event) => {
-    currentNumOfArticles = event.target.value;
-    changeArticlesCounter(currentNumOfArticles);
-    cardsDisplay[0].remove();
-    const body = document.getElementsByTagName("BODY")[0];
-    const newMain = document.createElement("div");
-    newMain.classList.add("main");
-    body.append(newMain);
-    displayArticles(0, currentNumOfArticles);
-    displayArticlesCount();
-})
+// slider.addEventListener("change", (event) => {
+//     currentNumOfArticles = event.target.value;
+//     changeArticlesCounter(currentNumOfArticles);
+//     cardsDisplay[0].remove();
+//     const body = document.getElementsByTagName("BODY")[0];
+//     const newMain = document.createElement("div");
+//     newMain.classList.add("main");
+//     body.append(newMain);
+//     displayArticles(0, currentNumOfArticles);
+//     displayArticlesCount();
+// })
 
 window.addEventListener("scroll", function () {
     const closeToEndCard = document.getElementsByClassName("close-to-end");
@@ -82,12 +88,12 @@ const getArticlesCount = async () => {
 };
 
 
-const displayArticlesCount = async () => {
-    const fetchedCount = await getArticlesCount()
-    articlesTotal = fetchedCount;
-    const countDisplay = document.getElementById("total-articles");
-    countDisplay.innerText = articlesTotal;
-}
+// const displayArticlesCount = async () => {
+//     const fetchedCount = await getArticlesCount()
+//     articlesTotal = fetchedCount;
+//     const countDisplay = document.getElementById("total-articles");
+//     countDisplay.innerText = articlesTotal;
+// }
 
 
 const getArticles = async (startNumber, limitNumber) => {
@@ -162,6 +168,8 @@ const displayArticles = async (firstArticle, numOfArticles) => {
     }
 }
     ;
+
+
 
 window.onload = (event) => {
     displayArticles(0, 15);
