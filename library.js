@@ -1,4 +1,9 @@
-// const slider = document.getElementById("num-of-articles");
+const selectSort = document.getElementById("sort");
+
+// Allow sorting Library ascending and descending by publishedAt date and by title.
+
+
+
 
 const cardsDisplay = document.getElementsByClassName("main");
 
@@ -12,7 +17,7 @@ let storedArticlesCount = localStorage.length;
 console.log(storedArticlesCount);
 
 
-
+// localStorage.clear()
 
 window.addEventListener("click", (event) => {
     const addedClasses = event.target.classList;
@@ -22,7 +27,7 @@ window.addEventListener("click", (event) => {
         if (addedClasses.contains("star-fill") && Object.keys(localStorage).includes(targetId)) {
             console.log(targetId);
             localStorage.removeItem(`${targetId}`);
-            console.log("ITEM REMOVED FROM STORAGE");
+            console.log("Article REMOVED FROM STORAGE");
             event.target.classList.toggle("star-fill");
             console.log(Object.keys(localStorage));
 
@@ -31,7 +36,7 @@ window.addEventListener("click", (event) => {
             console.log(Object.keys(localStorage))
             event.target.classList.toggle("star-fill");
             localStorage.setItem(`${event.target.id}`, `${event.target.id}`);
-            (console.log("article saved to the storage, id: ", event.target.id));
+            (console.log("Article SAVED TO THE STORAGE, id: ", event.target.id));
 
         }
         else {
@@ -44,34 +49,50 @@ window.addEventListener("click", (event) => {
 
 const displayTotalSavedArticles = () => {
     const totalSavedArticles = document.getElementById("total-saved-articles");
-    console.log(totalSavedArticles);
+    // console.log(totalSavedArticles);
     totalSavedArticles.innerText = storedArticlesCount;
 }
 displayTotalSavedArticles();
 
 
-// slider.addEventListener("change", (event) => {
-//     currentNumOfArticles = event.target.value;
-//     changeArticlesCounter(currentNumOfArticles);
-//     cardsDisplay[0].remove();
-//     const body = document.getElementsByTagName("BODY")[0];
-//     const newMain = document.createElement("div");
-//     newMain.classList.add("main");
-//     body.append(newMain);
-//     displayArticles(0, currentNumOfArticles);
-//     displayArticlesCount();
-// })
-
-window.addEventListener("scroll", function () {
-    const closeToEndCard = document.getElementsByClassName("close-to-end");
-    const cardPosition = closeToEndCard[0].offsetTop;
-    if (window.scrollY > cardPosition) {
-        closeToEndCard[0].classList.value = "card";
-        displayArticles(currentNumOfArticles, 8);
-        currentNumOfArticles += 8;
-        changeArticlesCounter(currentNumOfArticles);
+selectSort.addEventListener("change", (event) => {
+    selectedSort = event.target.value;
+    if (selectedSort === "title") {
+        console.log("FUNCTION - REMOVE ARTICLES AND ADD NEW, SORTED BY TITLE");
     }
-});
+    else if (selectedSort === "date") {
+        console.log("FUNCTION - REMOVE ARTICLES AND ADD NEW, SORTED BY DATE");
+
+        cardsDisplay[0].remove();
+        const body = document.getElementsByTagName("BODY")[0];
+        const newMain = document.createElement("div");
+        newMain.classList.add("main");
+        body.append(newMain);
+        // console.log(newMain);
+        // get sorted articles
+        displayArticles();
+    } else {
+        console.log('SOMETHING WENT WRONG')
+    }
+
+
+    // displayArticles(0, currentNumOfArticles);
+    // displayArticlesCount();
+})
+
+// window.addEventListener("scroll", function () {
+//     if (storedArticlesCount > 8) {
+//         const closeToEndCard = document.getElementsByClassName("close-to-end");
+//         const cardPosition = closeToEndCard[0].offsetTop;
+//         if (window.scrollY > cardPosition) {
+//             closeToEndCard[0].classList.value = "card";
+//             displayArticles();
+//             currentNumOfArticles += 8;
+//             changeArticlesCounter(currentNumOfArticles);
+//         }
+//     }
+
+// });
 
 
 // const getArticlesCount = async () => {
@@ -103,15 +124,19 @@ window.addEventListener("scroll", function () {
 //     }
 // };
 
-const getSavedArticles = async () => {
+const getSavedArticles = async (sortType) => {
     let url = `https://api.spaceflightnewsapi.net/v3/articles?`;
 
     try {
         for (let article of storedArticlesId) {
             newUrl = url.concat(`id_in=${article}&`);
             url = newUrl
-            console.log(url);
+            // console.log(url);
         }
+        // url = url.concat("_sort=publishedAt:asc");
+        url = url.concat(`_sort=${sortType}`);
+        // url = url.concat(`_sort=`);
+        console.log(url);
         const res = await fetch(url);
         const data = await res.json();
         // console.log(data)
@@ -120,21 +145,25 @@ const getSavedArticles = async () => {
         console.log("ERROR :( ", err);
     }
 };
-getSavedArticles();
+getSavedArticles("publishedAt:asc");
 
 const displayArticles = async () => {
-    const fetchedArticles = await getSavedArticles();
-    console.log(fetchedArticles);
+    const fetchedArticles = await getSavedArticles("publishedAt:asc");
+    // console.log(fetchedArticles);
+    // console.log(fetchedArticles);
     for (let i = 0; i < storedArticlesCount; i++) {
         const newCard = document.createElement("article");
-        newCard.classList.add("card")
+        newCard.classList.add("card");
+        console.log(fetchedArticles[i].id);
+
         if (i === storedArticlesCount - 8) {
             newCard.classList.add("close-to-end");
-
         };
+
+
         const newStar = document.createElement("img");
         if (storedArticlesId.includes(`${fetchedArticles[i].id}`)) {
-            console.log("this article is saved in the storage! id: ", fetchedArticles[i].id);
+            // console.log("this article is saved in the storage! id: ", fetchedArticles[i].id);
             newStar.classList.add("star", "star-fill");
 
 
