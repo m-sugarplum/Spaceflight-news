@@ -1,54 +1,53 @@
-const slider = document.getElementById("num-of-articles");
+// const slider = document.getElementById("num-of-articles");
 
 const cardsDisplay = document.getElementsByClassName("main");
 
-let currentNumOfArticles = 15;
+// let currentNumOfArticles = 15;
 
 let storedArticlesId = Object.keys(localStorage);
+console.log(storedArticlesId);
+
 
 let storedArticlesCount = localStorage.length;
 console.log(storedArticlesCount);
 
-console.log(storedArticlesId);
 
 
 
-window.addEventListener("click", (event) => {
-    // console.log(Object.keys(localStorage))
-    // console.log(event.target.classList);
-    const addedClasses = event.target.classList;
-    const targetId = event.target.id;
-    if (addedClasses.contains("star")) {
-        // event.target.classList.toggle("star-fill");
-        if (addedClasses.contains("star-fill") && Object.keys(localStorage).includes(targetId)) {
-            console.log(targetId);
-            localStorage.removeItem(`${targetId}`);
-            console.log("ITEM REMOVED FROM STORAGE");
-            event.target.classList.toggle("star-fill");
-            console.log(Object.keys(localStorage));
+// window.addEventListener("click", (event) => {
+//     const addedClasses = event.target.classList;
+//     const targetId = event.target.id;
+//     if (addedClasses.contains("star")) {
+
+//         if (addedClasses.contains("star-fill") && Object.keys(localStorage).includes(targetId)) {
+//             console.log(targetId);
+//             localStorage.removeItem(`${targetId}`);
+//             console.log("ITEM REMOVED FROM STORAGE");
+//             event.target.classList.toggle("star-fill");
+//             console.log(Object.keys(localStorage));
 
 
-        } else if (!addedClasses.contains("star-fill") && !Object.keys(localStorage).includes(targetId)) {
-            console.log(Object.keys(localStorage))
-            event.target.classList.toggle("star-fill");
-            localStorage.setItem(`${event.target.id}`, `${event.target.id}`);
-            (console.log("article saved to the storage, id: ", event.target.id));
-            // console.log(Object.keys(localStorage));
-        }
-        else {
-            console.log("Something went wrong");
+//         } else if (!addedClasses.contains("star-fill") && !Object.keys(localStorage).includes(targetId)) {
+//             console.log(Object.keys(localStorage))
+//             event.target.classList.toggle("star-fill");
+//             localStorage.setItem(`${event.target.id}`, `${event.target.id}`);
+//             (console.log("article saved to the storage, id: ", event.target.id));
+
+//         }
+//         else {
+//             console.log("Something went wrong");
 
 
-        }
-    }
-});
+//         }
+//     }
+// });
 
-const setArticlesNumDisplay = () => {
+const displayTotalSavedArticles = () => {
     const totalSavedArticles = document.getElementById("total-saved-articles");
     console.log(totalSavedArticles);
     totalSavedArticles.innerText = storedArticlesCount;
 }
-setArticlesNumDisplay();
+displayTotalSavedArticles();
 
 
 // slider.addEventListener("change", (event) => {
@@ -65,9 +64,7 @@ setArticlesNumDisplay();
 
 window.addEventListener("scroll", function () {
     const closeToEndCard = document.getElementsByClassName("close-to-end");
-
     const cardPosition = closeToEndCard[0].offsetTop;
-
     if (window.scrollY > cardPosition) {
         closeToEndCard[0].classList.value = "card";
         displayArticles(currentNumOfArticles, 8);
@@ -77,15 +74,15 @@ window.addEventListener("scroll", function () {
 });
 
 
-const getArticlesCount = async () => {
-    try {
-        const res = await fetch("https://api.spaceflightnewsapi.net/v3/articles/count");
-        const data = await res.json();
-        return data
-    } catch (err) {
-        console.log("ERROR :( ", err);
-    }
-};
+// const getArticlesCount = async () => {
+//     try {
+//         const res = await fetch("https://api.spaceflightnewsapi.net/v3/articles/count");
+//         const data = await res.json();
+//         return data
+//     } catch (err) {
+//         console.log("ERROR :( ", err);
+//     }
+// };
 
 
 // const displayArticlesCount = async () => {
@@ -96,16 +93,34 @@ const getArticlesCount = async () => {
 // }
 
 
-const getArticles = async (startNumber, limitNumber) => {
+// const getArticles = async (startNumber, limitNumber) => {
+//     try {
+//         const res = await fetch(`https://api.spaceflightnewsapi.net/v3/articles?_start=${startNumber}&_limit=${limitNumber}`);
+//         const data = await res.json();
+//         return data
+//     } catch (err) {
+//         console.log("ERROR :( ", err);
+//     }
+// };
+
+const getSavedArticles = async () => {
+    let url = `https://api.spaceflightnewsapi.net/v3/articles?`;
+
     try {
-        const res = await fetch(`https://api.spaceflightnewsapi.net/v3/articles?_start=${startNumber}&_limit=${limitNumber}`);
+        for (let article of storedArticlesId) {
+            newUrl = url.concat(`id_in=${article}&`);
+            url = newUrl
+            console.log(url);
+        }
+        const res = await fetch(url);
         const data = await res.json();
+        console.log(data)
         return data
     } catch (err) {
         console.log("ERROR :( ", err);
     }
 };
-
+getSavedArticles();
 
 const displayArticles = async (firstArticle, numOfArticles) => {
     const fetchedArticles = await getArticles(firstArticle, numOfArticles);
@@ -172,10 +187,10 @@ const displayArticles = async (firstArticle, numOfArticles) => {
 
 
 window.onload = (event) => {
-    displayArticles(0, 15);
+    // displayArticles(0, 15);
 };
 
-displayArticlesCount();
+// displayArticlesCount();
 
 
 console.log("HELLO FROM THE LIBRARY SCRIPT!");
