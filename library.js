@@ -114,7 +114,7 @@ const getSavedArticles = async () => {
         }
         const res = await fetch(url);
         const data = await res.json();
-        console.log(data)
+        // console.log(data)
         return data
     } catch (err) {
         console.log("ERROR :( ", err);
@@ -122,16 +122,13 @@ const getSavedArticles = async () => {
 };
 getSavedArticles();
 
-const displayArticles = async (firstArticle, numOfArticles) => {
-    const fetchedArticles = await getArticles(firstArticle, numOfArticles);
+const displayArticles = async () => {
+    const fetchedArticles = await getSavedArticles();
     console.log(fetchedArticles);
-    for (let i = 0; i < numOfArticles; i++) {
-
-
-
+    for (let i = 0; i < storedArticlesCount; i++) {
         const newCard = document.createElement("article");
         newCard.classList.add("card")
-        if (i === numOfArticles - 8) {
+        if (i === storedArticlesCount - 8) {
             newCard.classList.add("close-to-end");
 
         };
@@ -187,7 +184,7 @@ const displayArticles = async (firstArticle, numOfArticles) => {
 
 
 window.onload = (event) => {
-    // displayArticles(0, 15);
+    displayArticles();
 };
 
 // displayArticlesCount();
