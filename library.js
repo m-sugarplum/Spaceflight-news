@@ -10,11 +10,11 @@ const cardsDisplay = document.getElementsByClassName("main");
 // let currentNumOfArticles = 15;
 
 let storedArticlesId = Object.keys(localStorage);
-console.log(storedArticlesId);
+// console.log(storedArticlesId);
 
 
 let storedArticlesCount = localStorage.length;
-console.log(storedArticlesCount);
+// console.log(storedArticlesCount);
 
 
 // localStorage.clear()
@@ -57,10 +57,15 @@ displayTotalSavedArticles();
 
 selectSort.addEventListener("change", (event) => {
     selectedSort = event.target.value;
-    if (selectedSort === "title") {
-        console.log("FUNCTION - REMOVE ARTICLES AND ADD NEW, SORTED BY TITLE");
+    if (selectedSort === "date-asc") {
+        cardsDisplay[0].remove();
+        const body = document.getElementsByTagName("BODY")[0];
+        const newMain = document.createElement("div");
+        newMain.classList.add("main");
+        body.append(newMain);
+        displayArticles("publishedAt:asc");
     }
-    else if (selectedSort === "date") {
+    else if (selectedSort === "date-desc") {
         console.log("FUNCTION - REMOVE ARTICLES AND ADD NEW, SORTED BY DATE");
 
         cardsDisplay[0].remove();
@@ -70,9 +75,16 @@ selectSort.addEventListener("change", (event) => {
         body.append(newMain);
         // console.log(newMain);
         // get sorted articles
-        displayArticles();
+        displayArticles("publishedAt:desc");
+    } else if (selectedSort === "title") {
+        cardsDisplay[0].remove();
+        const body = document.getElementsByTagName("BODY")[0];
+        const newMain = document.createElement("div");
+        newMain.classList.add("main");
+        body.append(newMain);
+        displayArticles("title");
     } else {
-        console.log('SOMETHING WENT WRONG')
+        console.log("something went wrong");
     }
 
 
@@ -131,34 +143,34 @@ const getSavedArticles = async (sortType) => {
         for (let article of storedArticlesId) {
             newUrl = url.concat(`id_in=${article}&`);
             url = newUrl
-            // console.log(url);
+            // console.log(article, url);
         }
         // url = url.concat("_sort=publishedAt:asc");
         url = url.concat(`_sort=${sortType}`);
         // url = url.concat(`_sort=`);
-        console.log(url);
+        // console.log(url);
         const res = await fetch(url);
         const data = await res.json();
-        // console.log(data)
+        console.log(data)
         return data
     } catch (err) {
         console.log("ERROR :( ", err);
     }
 };
-getSavedArticles("publishedAt:asc");
+// getSavedArticles("publishedAt:asc");
 
-const displayArticles = async () => {
-    const fetchedArticles = await getSavedArticles("publishedAt:asc");
-    // console.log(fetchedArticles);
-    // console.log(fetchedArticles);
+const displayArticles = async (sortType) => {
+    const fetchedArticles = await getSavedArticles(sortType);
+    // console.log(fetchedArticles, storedArticlesId);
+
     for (let i = 0; i < storedArticlesCount; i++) {
         const newCard = document.createElement("article");
         newCard.classList.add("card");
-        console.log(fetchedArticles[i].id);
+        // console.log(fetchedArticles[i].id);
 
-        if (i === storedArticlesCount - 8) {
-            newCard.classList.add("close-to-end");
-        };
+        // if (i === storedArticlesCount - 8) {
+        //     newCard.classList.add("close-to-end");
+        // };
 
 
         const newStar = document.createElement("img");
@@ -213,7 +225,7 @@ const displayArticles = async () => {
 
 
 window.onload = (event) => {
-    displayArticles();
+    displayArticles("publishedAt:asc");
 };
 
 // displayArticlesCount();
