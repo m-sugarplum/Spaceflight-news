@@ -216,9 +216,22 @@ const displayArticles = async (sortType) => {
         newFooter.append(newParagraph);
         newCard.append(newImg, newStar, newTitle, newSummary, newLink, newFooter);
 
+
+
         const cardsDisplay = document.getElementsByClassName("main");
         cardsDisplay[0].append(newCard);
+
     }
+    const body = document.getElementsByTagName("BODY")[0];
+    const newDiv = document.createElement("div");
+    newDiv.classList.add("button-container");
+    const newButton = document.createElement("button");
+    newButton.setAttribute("id", "more-articles");
+    const newButtonLink = document.createElement("a");
+    newButtonLink.innerText = "More articles";
+    newButton.append(newButtonLink);
+    newDiv.append(newButton);
+    body.append(newDiv);
 }
     ;
 
