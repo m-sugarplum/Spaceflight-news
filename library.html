@@ -35,7 +35,16 @@
 
 
     <div class="sort-container">
-        <p>Sort by</p>
+        <div class="sort-input">
+            <label id="sort-label" for="sort">Sort by:</label>
+
+            <select name="sort" id="sort">
+                <option value="date">Publish Date</option>
+                <option value="title">Title</option>
+            </select>
+        </div>
+        <!-- <p>Sort by</p> -->
+
         <div class="show-articles-num">
             <label for="num-of-articles">Showing articles:</label>
             <p id="total-saved-articles">14</p>
@@ -45,7 +54,7 @@
         <!-- <input type="range" min="15" max="90" value="15" step="15" class="slider" id="num-of-articles"> -->
     </div>
 
-    <div class="main">
+    <div class="main" id="main-library">
 
 
 
