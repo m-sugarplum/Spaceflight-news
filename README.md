@@ -1,2 +1,1 @@
-# frontend-internship
-Magdalena Śliwińska
+Website consuming an API to display spaceflight articles
